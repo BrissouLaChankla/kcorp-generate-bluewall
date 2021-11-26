@@ -5,7 +5,7 @@
         <img style="width:120px" class="border-primary border-bottom" src="{{asset('img/supporter.png')}}" alt="Supporter KCorp">
         <h1 class="text-uppercase text-white my-2"><strong>KCorp <br> Blue wall</strong></h1>
     </div>
-    <div class="row justify-content-center align-items-center" >
+    <div class="row justify-content-center align-items-center my-3" >
         <div class="col-sm-6">
             {!! Form::open(['url' => 'https://sdk.photoroom.com/v1/segment', "id" =>"kcorp",'class' => ' ajax-and-picture', 'files' => true]) !!}
                 <div class="drop-zone">
