@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section('content')
-<div class="w-100 h-100 container d-flex flex-column justify-content-around" id="app">
+<div class="w-100 h-100 container d-flex flex-column justify-content-around mt-3" id="app">
     <div class="text-center" >
         <img style="width:120px" class="border-primary border-bottom" src="{{asset('img/supporter.png')}}" alt="Supporter KCorp">
         <h1 class="text-uppercase text-white"><strong>KCorp <br> Blue wall</strong></h1>
