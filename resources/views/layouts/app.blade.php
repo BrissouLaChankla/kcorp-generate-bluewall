@@ -22,7 +22,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="vw-100 bg-secondary" >
+<body class="vw-100 bg-secondary" style="   overflow-x: hidden;" >
     @yield('content')
     @yield('scripts')
 </body>
