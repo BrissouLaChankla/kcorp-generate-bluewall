@@ -9,7 +9,7 @@
         <div class="col-sm-6">
             {!! Form::open(['url' => 'https://sdk.photoroom.com/v1/segment', "id" =>"kcorp",'class' => ' ajax-and-picture', 'files' => true]) !!}
                 <div class="drop-zone">
-                    <span class="drop-zone__prompt">Drag and drop ta photo de bg ici</span>
+                    <span class="drop-zone__prompt">Drag and drop your picture here <br><small>(Will automatically remove background)</small></span>
                     {{Form::file('image_file', ['id' => "file-input", "class" => "drop-zone__input"])}}
                 </div>
             {!! Form::close() !!}
@@ -17,7 +17,7 @@
 
         <div class="col-sm-6 mt-3 mt-sm-0">
           <div class="background-kc rounded shadow-sm position-relative" style="background-image:url({{asset('img/wall.jpg')}})">
-            <span class="text-white frais">Comment t'es trop frais... 🥵</span>
+            {{-- <span class="text-white frais">Comment t'es trop frais... 🥵</span> --}}
                 <div id="ur-pic"></div>
             </div>
         </div>
@@ -25,7 +25,7 @@
  
         <div class="text-center">
             <div class="btn btn-primary btn-lg my-3"  id="pic-download">
-            Télécharger ta nouvelle PP
+              Télécharger ta nouvelle PP
             </div>
         </div>
    
@@ -313,6 +313,7 @@ function updateThumbnail(dropZoneElement, file) {
                     var img = document.getElementById('img');
                     var url = window.URL || window.webkitURL;
                     $('#ur-pic').css('background-image','url('+url.createObjectURL(data)+')');
+                    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
                     $('#pic-download').fadeIn().css("display","inline-block");
                     $('.frais').fadeIn();
                 },
@@ -352,7 +353,8 @@ function updateThumbnail(dropZoneElement, file) {
     });
 
     $('#pic-download').on('click', function() {
-        html2canvas($(".background-kc")[0]).then((canvas) => {
+        html2canvas($(".background-kc")[0], {width: 500,
+  height: 500}).then((canvas) => {
             var a = document.createElement('a');
                 a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg");
                 a.download = 'PP-KC-Twitter.jpg';
