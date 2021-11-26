@@ -1,9 +1,9 @@
 @extends("layouts.app")
 @section('content')
-<div class="w-100 h-100 container d-flex flex-column justify-content-around mt-3" id="app">
+<div class="w-100 h-100 container d-flex flex-column justify-content-around overflow-hidden" id="app">
     <div class="text-center" >
         <img style="width:120px" class="border-primary border-bottom" src="{{asset('img/supporter.png')}}" alt="Supporter KCorp">
-        <h1 class="text-uppercase text-white"><strong>KCorp <br> Blue wall</strong></h1>
+        <h1 class="text-uppercase text-white my-2"><strong>KCorp <br> Blue wall</strong></h1>
     </div>
     <div class="row justify-content-center align-items-center" >
         <div class="col-sm-6">
@@ -48,7 +48,7 @@ h1 {
 
   font-family: 'Bebas Neue', cursive;
   letter-spacing: 2px;
-  font-size:4rem;
+  font-size:3rem;
   line-height: 1;
 }
     
