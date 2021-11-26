@@ -54,7 +54,7 @@ h1 {
     
 .drop-zone {
   margin:auto;
-    width:65%;
+    width:75%;
     padding: 4%;
     display: flex;
     align-items: center;
@@ -163,7 +163,7 @@ h1 {
     }
 
     .background-kc {
-      width:65%;
+      width:75%;
       margin:auto;
         background-size:cover;
         background-position: center;
@@ -186,7 +186,6 @@ h1 {
     function checkWidth() {
         var windowsize = $window.width();
         if (windowsize < 576) {
-          console.log("caca");
               $('.drop-zone').height($(".drop-zone").width());
               $('.background-kc').height($(".background-kc").width());
         }
@@ -353,8 +352,7 @@ function updateThumbnail(dropZoneElement, file) {
     });
 
     $('#pic-download').on('click', function() {
-        html2canvas($(".background-kc")[0], {width: 500,
-  height: 500}).then((canvas) => {
+        html2canvas($(".background-kc")[0], {scale:2}).then((canvas) => {
             var a = document.createElement('a');
                 a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg");
                 a.download = 'PP-KC-Twitter.jpg';
