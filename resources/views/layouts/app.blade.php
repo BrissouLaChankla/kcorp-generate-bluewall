@@ -22,7 +22,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="vw-100 bg-secondary py-3" >
+<body class="vw-100 bg-secondary" >
     @yield('content')
     @yield('scripts')
 </body>
