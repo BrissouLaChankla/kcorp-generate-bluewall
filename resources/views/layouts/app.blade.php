@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>KC Blue Wall - Generate your twitter profile's picture</title>
-
+    <meta name="description" content="To show your support to the KCorp Team around the world, you can add a blue wall to your twitter profiles picture, that you can create here !">
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" ></script>
     
@@ -21,9 +21,19 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RE4SDXFTHP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+        gtag('config', 'G-RE4SDXFTHP');
+      </script>
 </head>
 <body class="vw-100 bg-secondary" style="overflow-x: hidden;" >
     @yield('content')
     @yield('scripts')
 </body>
 </html>
+
+
