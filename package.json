@@ -24,6 +24,8 @@
     },
     "dependencies": {
         "blueimp-load-image": "^5.16.0",
+        "js-cookie": "^3.0.1",
+        "sweetalert2": "^11.2.1",
         "transparentify": "^0.1.0"
     }
 }

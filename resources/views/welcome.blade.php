@@ -2,7 +2,7 @@
 @section('content')
 <div class="w-100 h-100 container d-flex flex-column justify-content-around overflow-hidden" id="app">
     <div class="text-center" >
-        <img style="width:120px" class="border-primary border-bottom" src="{{asset('img/supporter.png')}}" alt="Supporter KCorp">
+        <img style="width:120px" class="border-primary border-bottom mt-4" src="{{asset('img/supporter.png')}}" alt="Supporter KCorp">
         <h1 class="text-uppercase text-white my-2"><strong>KCorp <br> Blue wall</strong></h1>
     </div>
     <div class="row justify-content-center align-items-center my-3" >
@@ -17,7 +17,6 @@
 
         <div class="col-sm-6 mt-3 mt-sm-0">
           <div class="background-kc rounded shadow-sm position-relative" style="background-image:url({{asset('img/wall.jpg')}})">
-            {{-- <span class="text-white frais">Comment t'es trop frais... 🥵</span> --}}
                 <div id="ur-pic"></div>
             </div>
         </div>
@@ -34,16 +33,6 @@
 
 <style>
 
-  .frais {
-    font-family: 'Finger Paint', cursive;
-    position: absolute;
-    width: 100%;
-    transform: translateX(-50%);
-    left: 50%;
-    opacity: .9;
-    bottom: -25px;
-    display: none;
-  }
 h1 {
 
   font-family: 'Bebas Neue', cursive;
@@ -180,6 +169,40 @@ h1 {
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
     $(function() {
+
+      const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 5000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+
+
+      if(Cookies.get('limit') == 0) {
+        Toast.fire({
+          icon: 'error',
+          title: 'You\'ve used up all your credits, come back tomorrow!'
+        });
+      } else if(Cookies.get('limit')) {
+   
+        Toast.fire({
+            icon: 'info',
+            title: "You have "+Cookies.get('limit')+" credits left !"
+          });
+      } else {
+        Cookies.set('limit', 3, { expires: 1 });
+        Toast.fire({
+            icon: 'info',
+            title: "You have "+Cookies.get('limit')+" credits left !"
+          });
+      }
+
     var $window = $(window);
     var $pane = $('#pane1');
 
@@ -208,7 +231,20 @@ h1 {
   inputElement.addEventListener("change", (e) => {
     if (inputElement.files.length) {
       updateThumbnail(dropZoneElement, inputElement.files[0]);
-      submitForm();
+      if(Cookies.get('limit') > 0) {
+        submitForm();
+        Cookies.set('limit', Cookies.get('limit')-1);
+        Toast.fire({
+          icon: 'info',
+          title: "You have "+Cookies.get('limit')+" credits left !"
+        });
+      } else {
+        Toast.fire({
+          icon: 'danger',
+          title: 'You\'ve used up all your credits, come back tomorrow!'
+        });
+        $('#ur-pic').css('background-image','url("{{asset('img/stop.png')}}")');
+      }
      
 
     }
@@ -231,7 +267,20 @@ h1 {
     if (e.dataTransfer.files.length) {
       inputElement.files = e.dataTransfer.files;
       updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-      submitForm();
+      if(Cookies.get('limit') > 0) {
+        submitForm();
+        Cookies.set('limit', Cookies.get('limit')-1);
+        Toast.fire({
+            icon: 'info',
+            title: "You have "+Cookies.get('limit')+" credits left !"
+          });
+      } else {
+        Toast.fire({
+          icon: 'error',
+          title: 'You\'ve used up all your credits, come back tomorrow!'
+        });
+        $('#ur-pic').css('background-image','url("{{asset('img/stop.png')}}")');
+      }
      
 
     }
