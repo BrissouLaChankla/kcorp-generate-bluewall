@@ -13,7 +13,7 @@
     <script src="{{ asset('js/app.js') }}" ></script>
     
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
-    <link rel="icon" type="img/png" href="{{asset('img/logo.png')}}" />
+    <link rel="icon" type="image/x-icon" href="{{asset('img/logo.ico')}}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

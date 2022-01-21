@@ -2,7 +2,7 @@
 @section('content')
 <div class="w-100 h-100 container d-flex flex-column justify-content-around overflow-hidden" id="app">
     <div class="text-center" >
-        <img style="width:120px" class="border-primary border-bottom mt-4" src="{{asset('img/supporter.png')}}" alt="Supporter KCorp">
+        <img style="width:120px" class="border-primary border-bottom mt-4" src="{{asset('img/supporter.webp')}}" alt="Supporter KCorp">
         <h1 class="text-uppercase text-white my-2"><strong>KCorp <br> Blue wall</strong></h1>
     </div>
     <div class="row justify-content-center align-items-center my-3" >
@@ -14,27 +14,20 @@
                 </div>
             {!! Form::close() !!}
         </div>
-
         <div class="col-sm-6 mt-3 mt-sm-0">
-          <div class="background-kc rounded shadow-sm position-relative" style="background-image:url({{asset('img/wall.jpg')}})">
+          <div class="background-kc rounded shadow-sm position-relative" style="background-image:url({{asset('img/wall.webp')}})">
                 <div id="ur-pic"></div>
             </div>
         </div>
     </div> 
- 
         <div class="text-center">
             <div class="btn btn-primary btn-lg my-3"  id="pic-download">
               Télécharger ta nouvelle PP
             </div>
         </div>
-   
-
 </div>
-
 <style>
-
 h1 {
-
   font-family: 'Bebas Neue', cursive;
   letter-spacing: 2px;
   font-size:3rem;
@@ -42,7 +35,7 @@ h1 {
 }
     
 .drop-zone {
-  margin:auto;
+    margin:auto;
     width:75%;
     padding: 4%;
     display: flex;
@@ -112,7 +105,6 @@ h1 {
   }
 }
 
-
 .drop-zone--over {
   border-style: solid;
 }
@@ -143,7 +135,6 @@ h1 {
   font-size: 14px;
   text-align: center;
 }
-
     #ur-pic {
         background-position: center;
         background-size: cover;
@@ -181,16 +172,12 @@ h1 {
     toast.addEventListener('mouseleave', Swal.resumeTimer)
   }
 })
-
-
-
       if(Cookies.get('limit') == 0) {
         Toast.fire({
           icon: 'error',
           title: 'You\'ve used up all your credits, come back tomorrow!'
         });
       } else if(Cookies.get('limit')) {
-   
         Toast.fire({
             icon: 'info',
             title: "You have "+Cookies.get('limit')+" credits left !"
@@ -202,10 +189,8 @@ h1 {
             title: "You have "+Cookies.get('limit')+" credits left !"
           });
       }
-
     var $window = $(window);
     var $pane = $('#pane1');
-
     function checkWidth() {
         var windowsize = $window.width();
         if (windowsize < 576) {
@@ -217,17 +202,11 @@ h1 {
     checkWidth();
     // Bind event listener
     $(window).resize(checkWidth);
-
-
-   
-
-        document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+      document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
   const dropZoneElement = inputElement.closest(".drop-zone");
-
   dropZoneElement.addEventListener("click", (e) => {
     inputElement.click();
   });
-
   inputElement.addEventListener("change", (e) => {
     if (inputElement.files.length) {
       updateThumbnail(dropZoneElement, inputElement.files[0]);
@@ -243,10 +222,8 @@ h1 {
           icon: 'danger',
           title: 'You\'ve used up all your credits, come back tomorrow!'
         });
-        $('#ur-pic').css('background-image','url("{{asset('img/stop.png')}}")');
+        $('#ur-pic').css('background-image','url("{{asset('img/stop.webp')}}")');
       }
-     
-
     }
   });
 
@@ -254,16 +231,13 @@ h1 {
     e.preventDefault();
     dropZoneElement.classList.add("drop-zone--over");
   });
-
   ["dragleave", "dragend"].forEach((type) => {
     dropZoneElement.addEventListener(type, (e) => {
       dropZoneElement.classList.remove("drop-zone--over");
     });
   });
-
   dropZoneElement.addEventListener("drop", (e) => {
     e.preventDefault();
-
     if (e.dataTransfer.files.length) {
       inputElement.files = e.dataTransfer.files;
       updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
@@ -279,12 +253,9 @@ h1 {
           icon: 'error',
           title: 'You\'ve used up all your credits, come back tomorrow!'
         });
-        $('#ur-pic').css('background-image','url("{{asset('img/stop.png')}}")');
+        $('#ur-pic').css('background-image','url("{{asset('img/stop.webp')}}")');
       }
-     
-
     }
-
     dropZoneElement.classList.remove("drop-zone--over");
   });
 });
@@ -309,9 +280,7 @@ function updateThumbnail(dropZoneElement, file) {
     thumbnailElement.classList.add("drop-zone__thumb");
     dropZoneElement.appendChild(thumbnailElement);
   }
-
   thumbnailElement.dataset.label = file.name;
-
   // Show thumbnail for image files
   if (file.type.startsWith("image/")) {
     const reader = new FileReader();
@@ -324,23 +293,6 @@ function updateThumbnail(dropZoneElement, file) {
     thumbnailElement.style.backgroundImage = null;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function submitForm() {
             var myForm = $("#kcorp")[0];
             var url = $("#kcorp").attr('action');
@@ -366,11 +318,9 @@ function updateThumbnail(dropZoneElement, file) {
                     $('.frais').fadeIn();
                 },
                 error:function(){
-                    
                 }
             });
     }
-
         $("form.ajax-and-picture").submit(function(e) {
                 e.preventDefault();
                 var myForm = $(this)[0];
@@ -394,12 +344,9 @@ function updateThumbnail(dropZoneElement, file) {
                         $('#ur-pic').css('background-image','url('+url.createObjectURL(data)+')')
                     },
                     error:function(){
-                        
                     }
                 });
-
     });
-
     $('#pic-download').on('click', function() {
         html2canvas($(".background-kc")[0], {scale:2}).then((canvas) => {
             var a = document.createElement('a');
@@ -409,11 +356,6 @@ function updateThumbnail(dropZoneElement, file) {
         });
 
     });
-
-
 });
-
-
-
 </script>
 @endsection
