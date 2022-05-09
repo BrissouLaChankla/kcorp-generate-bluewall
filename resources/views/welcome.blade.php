@@ -14,8 +14,8 @@
                 </div>
             {!! Form::close() !!}
         </div>
-        <div class="col-sm-6 mt-3 mt-sm-0">
-          <div class="background-kc rounded shadow-sm position-relative" style="background-image:url({{asset('img/wall.webp')}})">
+        <div class="col-sm-6 mt-3 mt-sm-0 d-flex justify-content-center">
+          <div id="background-kc" class="m-0 rounded shadow-sm position-relative" style="background-image:url({{asset('img/wall.webp')}})">
                 <div id="ur-pic"></div>
             </div>
         </div>
@@ -61,7 +61,7 @@ h1 {
     font-size:4.5rem;
   }
 
-  .background-kc {
+  #background-kc {
     height: 250px!important;
     width: 250px!important;
   }
@@ -75,7 +75,7 @@ h1 {
   h1 {
     font-size:5rem;
   }
-  .background-kc {
+  #background-kc {
     height: 340px!important;
     width: 340px!important;
   }
@@ -87,7 +87,7 @@ h1 {
     width: 450px!important;
   }
 
-  .background-kc {
+  #background-kc {
     height: 450px!important;
     width: 450px!important;
   }
@@ -99,7 +99,7 @@ h1 {
     width: 500px!important;
   }
 
-  .background-kc {
+  #background-kc {
     height: 500px!important;
     width: 500px!important;
   }
@@ -124,6 +124,10 @@ h1 {
   background-position: center;
 }
 
+.border-bottom  {
+  border-bottom: 5px solid #00d8ec !important;
+}
+
 .drop-zone__thumb::after {
   content: attr(data-label);
   position: absolute;
@@ -143,7 +147,7 @@ h1 {
         width:100%;
     }
 
-    .background-kc {
+    #background-kc {
       width:75%;
       margin:auto;
         background-size:cover;
@@ -166,7 +170,7 @@ h1 {
 @endsection
       
 @section("scripts")
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+{{-- <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script> --}}
 <script defer>
     $(function() {
 
@@ -186,13 +190,14 @@ h1 {
           icon: 'error',
           title: 'You\'ve used up all your credits, come back tomorrow!'
         });
+
       } else if(Cookies.get('limit')) {
         Toast.fire({
             icon: 'info',
             title: "You have "+Cookies.get('limit')+" credits left !"
           });
       } else {
-        Cookies.set('limit', 3, { expires: 1 });
+        Cookies.set('limit', 5, { expires: 1 });
         Toast.fire({
             icon: 'info',
             title: "You have "+Cookies.get('limit')+" credits left !"
@@ -204,7 +209,7 @@ h1 {
         var windowsize = $window.width();
         if (windowsize < 576) {
               $('.drop-zone').height($(".drop-zone").width());
-              $('.background-kc').height($(".background-kc").width());
+              $('#background-kc').height($("#background-kc").width());
         }
     }
     // Execute on load
@@ -357,12 +362,26 @@ function updateThumbnail(dropZoneElement, file) {
                 });
     });
     $('#pic-download').on('click', function() {
-        html2canvas($(".background-kc")[0], {scale:2}).then((canvas) => {
-            var a = document.createElement('a');
-                a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg");
-                a.download = 'PP-KC-Twitter.jpg';
-                a.click();
+      let element = document.getElementById('background-kc')
+        let scale = 2;
+      domtoimage.toJpeg(element, { 
+        width: element.clientWidth * scale,
+        height: element.clientHeight * scale,
+        style: { transform: 'scale('+scale+')', transformOrigin: 'top left'}
+      })
+        .then(function (dataUrl) {
+            var link = document.createElement('a');
+            link.download = 'PP-KC-Twitter.jpeg';
+            link.href = dataUrl;
+            link.click();
         });
+
+        // html2canvas($("#background-kc")[0], {scale:2}).then((canvas) => {
+        //     var a = document.createElement('a');
+        //         a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg");
+        //         a.download = 'PP-KC-Twitter.jpg';
+        //         a.click();
+        // });
 
     });
 });
