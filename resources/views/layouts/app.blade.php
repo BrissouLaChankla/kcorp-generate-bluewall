@@ -9,8 +9,6 @@
 
     <title>KC Blue Wall - Generate your twitter profile's picture</title>
     <meta name="description" content="To show your support to the KCorp Team around the world, you can add a blue wall to your twitter profiles picture, that you can create here !">
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" ></script>
     
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <link rel="icon" type="image/x-icon" href="{{asset('img/logo.ico')}}" />
@@ -26,12 +24,13 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-      
         gtag('config', 'G-RE4SDXFTHP');
       </script>
 </head>
-<body class="vw-100 bg-secondary" style="overflow-x: hidden;" >
+<body class="vw-100 bg-secondary" id="particles-js" style="overflow-x: hidden;" >
     @yield('content')
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts')
 </body>
 </html>

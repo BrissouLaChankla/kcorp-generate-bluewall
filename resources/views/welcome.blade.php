@@ -2,13 +2,13 @@
 @section('content')
 <div class="w-100 h-100 container d-flex flex-column justify-content-around overflow-hidden" id="app">
     <div class="text-center" >
-        <img style="width:120px" class="border-primary border-bottom mt-4" src="{{asset('img/supporter.webp')}}" alt="Supporter KCorp">
-        <h1 class="text-uppercase text-white my-2"><strong>KCorp <br> Blue wall</strong></h1>
+        <img style="width:120px" loading="lazy" class="bg-secondary border-primary border-bottom mt-4" src="{{asset('img/supporter.webp')}}" alt="Supporter KCorp">
+        <h1 class="text-uppercase text-white my-2"><strong class="bg-secondary">KCorp <br> Blue wall</strong></h1>
     </div>
     <div class="row justify-content-center align-items-center my-3" >
         <div class="col-sm-6">
             {!! Form::open(['url' => 'https://sdk.photoroom.com/v1/segment', "id" =>"kcorp",'class' => ' ajax-and-picture', 'files' => true]) !!}
-                <div class="drop-zone">
+                <div class="drop-zone bg-secondary">
                     <span class="drop-zone__prompt">Drag and drop your picture here <br><small>(Will automatically remove background)</small></span>
                     {{Form::file('image_file', ['id' => "file-input", "class" => "drop-zone__input"])}}
                 </div>
@@ -121,6 +121,7 @@ h1 {
   background-color: #cccccc;
   background-size: cover;
   position: relative;
+  background-position: center;
 }
 
 .drop-zone__thumb::after {
@@ -153,19 +154,27 @@ h1 {
     #pic-download {
       display:none;
     }
+
+    .particles-js-canvas-el {
+      position: fixed;
+      top:0;
+      left: 0;
+      z-index: -1;
+      opacity: .6;
+    }
 </style>
 @endsection
       
 @section("scripts")
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-<script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+<script defer>
     $(function() {
 
       const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
-  timer: 5000,
+  timer: 3000,
   timerProgressBar: true,
   didOpen: (toast) => {
     toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -356,6 +365,10 @@ function updateThumbnail(dropZoneElement, file) {
         });
 
     });
+});
+
+/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+particlesJS.load('particles-js', 'assets/particles.json', function() {
 });
 </script>
 @endsection
