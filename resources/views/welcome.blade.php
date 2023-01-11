@@ -25,7 +25,11 @@
             <div class="col-sm-6 mt-3 mt-sm-0 d-flex justify-content-center">
                 <div id="background-g2" class="m-0 rounded shadow-sm position-relative"
                     style="background-image:url({{ asset('img/detonate.webp') }})">
-                    <div id="ur-pic"></div>
+                    <div id="ur-pic">
+                      <div class="d-none spinner-border text-light" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -194,6 +198,12 @@
             left: 10px;
             bottom: 10px;
         }
+
+        .spinner-border {
+          position: absolute;
+          top: calc(50% - 20px);
+          left: calc(50% - 14px);
+        }
     </style>
 @endsection
 
@@ -316,6 +326,7 @@
              */
             function updateThumbnail(dropZoneElement, file) {
                 let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+                document.querySelector('.spinner-border').classList.remove('d-none')
 
                 // First time - remove the prompt
                 if (dropZoneElement.querySelector(".drop-zone__prompt")) {
@@ -359,6 +370,7 @@
                         return xhr;
                     },
                     success: function(data) {
+                      document.querySelector('.spinner-border').classList.add('d-none')
                         var img = document.getElementById('img');
                         var url = window.URL || window.webkitURL;
                         $('#ur-pic').css('background-image', 'url(' + url.createObjectURL(data) + ')');
@@ -388,6 +400,7 @@
                         return xhr;
                     },
                     success: function(data) {
+                        document.querySelector('.spinner-border').classList.add('d-none')
                         var img = document.getElementById('img');
                         var url = window.URL || window.webkitURL;
                         $('#ur-pic').css('background-image', 'url(' + url.createObjectURL(
@@ -434,15 +447,16 @@
     'display: inline-block', 
     'color: #ee3d23', 
     'padding: 8px 19px', 
+    'border-radius:30px',
     'border: 1px dashed white;' 
 ].join(';') 
 let styles2= [ 
-    'font-size: 10.85px', 
+    'font-size: 10.9px', 
     'font-family: monospace', 
     'background: black', 
     'display: inline-block', 
-    'color: #ee3d23', 
     'padding: 8px 19px', 
+    'border-radius:30px',
     'border: 1px dashed white;' 
 ].join(';') 
 console.log(msg, styles);

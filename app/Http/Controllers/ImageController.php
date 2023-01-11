@@ -16,7 +16,7 @@ class ImageController extends Controller
         $file = $request->file("image_file");
       
         $response =Http::withHeaders([
-          'x-api-key'=>"147d07b083abc001c55bbc9ba5c3138c79711358"
+          'x-api-key'=>"9075d04ddd18ac9fdb464c012ee1fccd6c3ce003"
         ])
         ->post('https://sdk.photoroom.com/v1/segment', [
           "image_file_b64"=>base64_encode($file->get())
