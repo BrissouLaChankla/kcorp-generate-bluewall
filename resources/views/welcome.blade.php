@@ -2,25 +2,19 @@
 @section('content')
     <div class="w-100 h-100 container d-flex flex-column justify-content-around overflow-hidden" id="app">
         <div class="text-center">
-            <img style="width:120px" loading="lazy" class=" border-primary mt-4"
-                src="{{ asset('img/logo-detonate.png') }}" alt="Detonate G2">
+            <img style="width:120px" loading="lazy" class=" border-primary mt-4" src="{{ asset('img/logo-detonate.webp') }}"
+                alt="Detonate G2">
             <h1 class="text-uppercase text-white my-2"><strong>Detonate <br> Profile Picture</strong></h1>
         </div>
         <div class="row justify-content-center align-items-center my-3">
             <div class="col-sm-6">
-        {{-- {!! Form::open([
-          'url' => route('post-transparency'), 
-          'files' => true,
-          'id' => '',
-          'class' => ' ',
-          ]) !!} --}}
-
                 {!! Form::open([
-                    'url' => 'https://sdk.photoroom.com/v1/segment',
-                    'id' => 'g2',
-                    'class' => ' ajax-and-picture',
+                    'url' => route('post-transparency'),
                     'files' => true,
+                    'id' => 'g2',
+                    'class' => 'ajax-and-picture',
                 ]) !!}
+
                 <div class="drop-zone bg-blur">
                     <span class="drop-zone__prompt">Drag and drop your picture here <br><small>(Will automatically remove
                             background)</small></span>
@@ -30,13 +24,13 @@
             </div>
             <div class="col-sm-6 mt-3 mt-sm-0 d-flex justify-content-center">
                 <div id="background-g2" class="m-0 rounded shadow-sm position-relative"
-                    style="background-image:url({{ asset('img/wall.jpg') }})">
+                    style="background-image:url({{ asset('img/detonate.webp') }})">
                     <div id="ur-pic"></div>
                 </div>
             </div>
         </div>
         <img class="logo-white-bottom d-none d-md-block" loading="lazy" class=" border-primary mt-4"
-                src="{{ asset('img/logo-white.png') }}" alt="Logo white G2">
+            src="{{ asset('img/logo-white.webp') }}" alt="Logo white G2">
         <div class="text-center">
             <div class="btn btn-primary btn-lg my-3" id="pic-download">
                 Download your picture 💣
@@ -44,18 +38,16 @@
         </div>
     </div>
     <style>
+        .bg-blur {
+            backdrop-filter: blur(5px);
+        }
 
+        body {
+            background-image: url("img/background.webp");
+            background-position: center;
+            background-size: cover;
+        }
 
-
-      .bg-blur {
-        backdrop-filter: blur(5px);
-      }
-
-      body {
-        background-image: url("img/background.jpg");
-        background-position: center;
-        background-size: cover;
-      } 
         h1 {
             font-family: 'Bebas Neue', cursive;
             letter-spacing: 2px;
@@ -76,7 +68,7 @@
             font-size: 20px;
             cursor: pointer;
             color: #cccccc;
-            
+
             border: 4px dashed #ee3d23;
             border-radius: 10px;
         }
@@ -139,7 +131,7 @@
 
 
         .drop-zone__prompt {
-          color:white!important;
+            color: white !important;
         }
 
         .drop-zone--over {
@@ -194,27 +186,18 @@
         }
 
         .logo-white-bottom {
-          z-index: -1;
-          width:4vw;
-          max-width: 110px;
-          min-width: 60px;
-          position: fixed;
-          left: 10px;
-          bottom: 10px;
-        }
-/* 
-        .particles-js-canvas-el {
-            position: fixed;
-            top: 0;
-            left: 0;
             z-index: -1;
-            opacity: .6;
-        } */
+            width: 4vw;
+            max-width: 110px;
+            min-width: 60px;
+            position: fixed;
+            left: 10px;
+            bottom: 10px;
+        }
     </style>
 @endsection
 
 @section('scripts')
-    {{-- <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script> --}}
     <script defer>
         $(function() {
 
@@ -241,7 +224,7 @@
                     title: "You have " + Cookies.get('limit') + " credits left !"
                 });
             } else {
-                Cookies.set('limit', 25, {
+                Cookies.set('limit', 10, {
                     expires: 1
                 });
                 Toast.fire({
@@ -285,7 +268,7 @@
                                 title: 'You\'ve used up all your credits, come back tomorrow!'
                             });
                             $('#ur-pic').css('background-image',
-                                'url("{{ asset('img/stop.png') }}")');
+                                'url("{{ asset('img/stop.webp') }}")');
                         }
                     }
                 });
@@ -359,6 +342,7 @@
                 }
             }
 
+
             function submitForm() {
                 var myForm = $("#g2")[0];
                 var url = $("#g2").attr('action');
@@ -368,9 +352,6 @@
                     cache: false,
                     processData: false,
                     contentType: false,
-                    headers: {
-                        'x-api-key': '147d07b083abc001c55bbc9ba5c3138c79711358'
-                    },
                     data: new FormData(myForm),
                     xhr: function() {
                         var xhr = new XMLHttpRequest();
@@ -390,10 +371,6 @@
                 });
             }
 
-
-            // Va fetch l'api en envoyant une photo 
-            // Au success fou un background img grace au blob 
-            
             $("form.ajax-and-picture").submit(function(e) {
                 e.preventDefault();
                 var myForm = $(this)[0];
@@ -404,9 +381,6 @@
                     cache: false,
                     processData: false,
                     contentType: false,
-                    headers: {
-                        'x-api-key': '147d07b083abc001c55bbc9ba5c3138c79711358'
-                    },
                     data: new FormData(myForm),
                     xhr: function() {
                         var xhr = new XMLHttpRequest();
@@ -427,7 +401,10 @@
 
             $('#pic-download').on('click', function() {
                 let element = document.getElementById('background-g2')
-                let scale = 2;
+                let scale = 2
+                if ($(window).width() > 768) {
+                    scale = 1.5
+                }
                 domtoimage.toJpeg(element, {
                         width: element.offsetWidth * scale,
                         height: element.offsetHeight * scale,
@@ -447,6 +424,28 @@
             });
         });
 
-        // particlesJS.load('particles-js', 'assets/particles.json', function() {});
+        let msg = "%c Dev with ❤️ by Brissou"; 
+        let msg2 = "%c https://brice-eliasse.com"; 
+        
+        let styles= [ 
+    'font-size: 12px', 
+    'font-family: monospace', 
+    'background: black', 
+    'display: inline-block', 
+    'color: #ee3d23', 
+    'padding: 8px 19px', 
+    'border: 1px dashed white;' 
+].join(';') 
+let styles2= [ 
+    'font-size: 10.85px', 
+    'font-family: monospace', 
+    'background: black', 
+    'display: inline-block', 
+    'color: #ee3d23', 
+    'padding: 8px 19px', 
+    'border: 1px dashed white;' 
+].join(';') 
+console.log(msg, styles);
+console.log(msg2, styles2);
     </script>
 @endsection
