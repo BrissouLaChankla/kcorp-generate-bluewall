@@ -17,4 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::controller(ImageController::class)->group(function () {
+    Route::post('/posttransparency', 'postTransparency')->name('post-transparency');
+});
+
 Auth::routes();

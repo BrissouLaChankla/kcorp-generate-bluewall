@@ -7,11 +7,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>KC Blue Wall - Generate your twitter profile's picture</title>
-    <meta name="description" content="To show your support to the KCorp Team around the world, you can add a blue wall to your twitter profiles picture, that you can create here !">
+    <title>G2 Esports - DETONATE PROFILE PICTURE</title>
+    <meta name="description" content="Just detonate your profile picture to support G2 ! 💣">
     
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
-    <link rel="icon" type="image/x-icon" href="{{asset('img/logo.ico')}}" />
+    <link rel="icon" type="image/x-icon" href="{{asset('favicon.ico')}}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
         gtag('config', 'G-RE4SDXFTHP');
       </script>
 </head>
-<body class="vw-100 bg-secondary" id="particles-js" style="overflow-x: hidden;" >
+<body class="vw-100" id="particles-js" style="overflow-x: hidden;" >
     @yield('content')
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
