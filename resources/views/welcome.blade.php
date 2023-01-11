@@ -3,11 +3,18 @@
     <div class="w-100 h-100 container d-flex flex-column justify-content-around overflow-hidden" id="app">
         <div class="text-center">
             <img style="width:120px" loading="lazy" class=" border-primary mt-4"
-                src="{{ asset('img/supporter.jpg') }}" alt="Detonate G2">
+                src="{{ asset('img/logo-detonate.png') }}" alt="Detonate G2">
             <h1 class="text-uppercase text-white my-2"><strong>Detonate <br> Profile Picture</strong></h1>
         </div>
         <div class="row justify-content-center align-items-center my-3">
             <div class="col-sm-6">
+        {{-- {!! Form::open([
+          'url' => route('post-transparency'), 
+          'files' => true,
+          'id' => '',
+          'class' => ' ',
+          ]) !!} --}}
+
                 {!! Form::open([
                     'url' => 'https://sdk.photoroom.com/v1/segment',
                     'id' => 'g2',
@@ -28,6 +35,8 @@
                 </div>
             </div>
         </div>
+        <img class="logo-white-bottom d-none d-md-block" loading="lazy" class=" border-primary mt-4"
+                src="{{ asset('img/logo-white.png') }}" alt="Logo white G2">
         <div class="text-center">
             <div class="btn btn-primary btn-lg my-3" id="pic-download">
                 Download your picture 💣
@@ -184,13 +193,23 @@
             display: none;
         }
 
+        .logo-white-bottom {
+          z-index: -1;
+          width:4vw;
+          max-width: 110px;
+          min-width: 60px;
+          position: fixed;
+          left: 10px;
+          bottom: 10px;
+        }
+/* 
         .particles-js-canvas-el {
             position: fixed;
             top: 0;
             left: 0;
             z-index: -1;
             opacity: .6;
-        }
+        } */
     </style>
 @endsection
 
@@ -222,7 +241,7 @@
                     title: "You have " + Cookies.get('limit') + " credits left !"
                 });
             } else {
-                Cookies.set('limit', 5, {
+                Cookies.set('limit', 25, {
                     expires: 1
                 });
                 Toast.fire({
@@ -366,7 +385,6 @@
                             scrollTop: $(document).height()
                         }, 1000);
                         $('#pic-download').fadeIn().css("display", "inline-block");
-                        $('.frais').fadeIn();
                     },
                     error: function() {}
                 });
@@ -409,13 +427,15 @@
 
             $('#pic-download').on('click', function() {
                 let element = document.getElementById('background-g2')
-                let scale = 1;
+                let scale = 2;
                 domtoimage.toJpeg(element, {
-                        width: element.clientWidth * scale,
-                        height: element.clientHeight * scale,
+                        width: element.offsetWidth * scale,
+                        height: element.offsetHeight * scale,
                         style: {
                             transform: 'scale(' + scale + ')',
-                            transformOrigin: 'top left'
+                            transformOrigin: 'top left',
+                            width: element.offsetWidth + "px",
+                            height: element.offsetHeight + "px"
                         }
                     })
                     .then(function(dataUrl) {
@@ -427,6 +447,6 @@
             });
         });
 
-        particlesJS.load('particles-js', 'assets/particles.json', function() {});
+        // particlesJS.load('particles-js', 'assets/particles.json', function() {});
     </script>
 @endsection
